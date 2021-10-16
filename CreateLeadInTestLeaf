@@ -1,0 +1,84 @@
+package Week2Day1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class CreateLeadInTestLeaf {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		// Step1: Set Driver and Launch Browser
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		
+		// Step2: Get Url
+		driver.get("http://leaftaps.com/opentaps/");
+		
+		// Step3: Set Broweser window maximize mode
+		driver.manage().window().maximize();
+		
+		// Step4: In Login Page Enter username and password
+		driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+		driver.findElement(By.id("password")).sendKeys("crmsfa");
+		
+		// Step5: Login to Webpage
+		driver.findElement(By.className("decorativeSubmit")).click();
+
+		// Step6: Click CRM/SFA link for goto lead create page
+		driver.findElement(By.partialLinkText("CRM")).click();
+		
+		// Step7: Click on Leads Button In Left Side 
+		driver.findElement(By.linkText("Create Lead")).click();
+		
+		// Step8: Enter Lead Information
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("Test Leaf");
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Vinoth");
+		//driver.findElement(By.id("createLeadForm_parentPartyId")).sendKeys("13377");
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("Kumar");
+		driver.findElement(By.name("dataSourceId")).click();
+		Select source= new Select (driver.findElement(By.name("dataSourceId")));
+		source.selectByVisibleText("Employee");
+		driver.findElement(By.id("createLeadForm_marketingCampaignId")).click();
+		Select campaign= new Select (driver.findElement(By.id("createLeadForm_marketingCampaignId")));
+		campaign.selectByVisibleText("Automobile");
+		driver.findElement(By.id("createLeadForm_firstNameLocal")).sendKeys("Vinoth");
+		driver.findElement(By.id("createLeadForm_lastNameLocal")).sendKeys("Kumar");
+		driver.findElement(By.id("createLeadForm_personalTitle")).sendKeys("Thulasi");
+		driver.findElement(By.name("birthDate")).sendKeys("12/10/1991");
+		driver.findElement(By.id("createLeadForm_generalProfTitle")).sendKeys("Mr");
+		driver.findElement(By.id("createLeadForm_departmentName")).sendKeys("Testing");
+		driver.findElement(By.id("createLeadForm_annualRevenue")).sendKeys("250000");
+		driver.findElement(By.name("currencyUomId")).click();
+		Select currency = new Select (driver.findElement(By.name("currencyUomId")));
+		currency.selectByVisibleText("INR - Indian Rupee");
+		driver.findElement(By.id("createLeadForm_description")).sendKeys("Software testing department new lead");
+		
+		// Step9: Contact Information Fill
+		driver.findElement(By.id("createLeadForm_primaryPhoneAreaCode")).sendKeys("3");
+		driver.findElement(By.id("createLeadForm_primaryPhoneNumber")).sendKeys("9840098400");
+		driver.findElement(By.id("createLeadForm_primaryEmail")).sendKeys("test@email.com");
+		
+		// Step10: Primary Address
+		driver.findElement(By.id("createLeadForm_generalAddress1")).sendKeys("Address 1");
+		driver.findElement(By.id("createLeadForm_generalAddress2")).sendKeys("Address 2");
+		driver.findElement(By.id("createLeadForm_generalCity")).sendKeys("Chennai");
+		Select country = new Select (driver.findElement(By.id("createLeadForm_generalCountryGeoId")));
+		country.selectByVisibleText("India");
+		Thread.sleep(2500);
+		driver.findElement(By.id("createLeadForm_generalStateProvinceGeoId")).click();
+		Select state = new Select (driver.findElement(By.id("createLeadForm_generalStateProvinceGeoId")));
+		state.selectByVisibleText("TAMILNADU");
+		driver.findElement(By.id("createLeadForm_generalPostalCode")).sendKeys("600001");
+		System.out.println("First Name:"+ driver.findElement(By.id("createLeadForm_firstName")).getText());
+		driver.findElement(By.className("smallSubmit")).click();
+		System.out.println("Page Title is:" + driver.getTitle());
+		
+		
+		
+	}
+
+}
